@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1586713170937.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "49A64D8C",
+    "lastKnownWriteTime" : 1586733795,
+    "last_content_update" : 1586733795866,
+    "path" : "D:/OneDrive/Paquetes/wrapar/R/geocodeDirecciones.R",
+    "project_path" : "R/geocodeDirecciones.R",
+    "properties" : {
+        "cursorPosition" : "51,35",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

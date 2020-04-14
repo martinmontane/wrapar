@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1586729428616.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "EB16C663",
+    "lastKnownWriteTime" : 1586733909,
+    "last_content_update" : 1586733909761,
+    "path" : "D:/OneDrive/Paquetes/wrapar/R/pruebas.R",
+    "project_path" : "R/pruebas.R",
+    "properties" : {
+        "cursorPosition" : "5,52",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
