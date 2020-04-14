@@ -1,3 +1,6 @@
+#' @importFrom attempt stop_if_all
+#' @importFrom httr GET content
+
 # Funciones que tienen por objetivo detectar fallas en la conexión a internet
 # o en la conexión con la API
 
