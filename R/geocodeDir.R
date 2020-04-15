@@ -13,7 +13,10 @@ geocodeDir <- function(direccion,provincia=NULL,departamento=NULL, limit=1,urlAp
 
   checkInternet()
   response <-httr::GET(urlApi,query=args)
-  checkResponseStatus(response)
+  if(!response$status_code==200) {
+    return(data.table(codigoAPI='Error'))
+  }
+  # checkResponseStatus(response)
 
   jsonRes <- jsonlite::fromJSON(httr::content(response,'text',encoding = 'UTF-8'))
   nMatchAPI<-jsonRes$cantidad
