@@ -6,6 +6,7 @@
 \usage{
 geocodeDirecciones(
   datos = NULL,
+  col_id = NULL,
   col_direccion = "direccion",
   col_provincia = NULL,
   col_departamento = NULL,
@@ -14,17 +15,19 @@ geocodeDirecciones(
 )
 }
 \arguments{
-\item{datos}{data.frame data.table tibble REQUERIDO}
+\item{datos}{OBLIGATORIO: Es un data.frame/data.table/tibble que contiene información sobre las direcciones a geolocalizar  (data.frame/data.table/tibble)}
 
-\item{col_direccion}{character REQUERIDO. Nombre de columna direccion a geolocalizar y normalizar.}
+\item{col_id}{OBLIGATORIO: Nombre de la columna que contiene un id único por dirección. Aunque la función no hace un chequeo de que sea único, es necesario que así lo sea para poder unir la devolución de puntos, que puede ser múltiple. (Vector numérico o character)}
 
-\item{col_provincia}{character Nombre de columna provincia a geolocalizar y normalizar. Es opcional en caso de querer precisar mayor información para el geocoding}
+\item{col_direccion}{OBLIGATORIO: Nombre de la columna que contiene la dirección a geolocalizar y normalizar. Por ejemplo, que contenga valores como "Figueroa Alcorta 7597".  (Vector character)}
 
-\item{col_departamento}{character Nombre de columna departamento a geolocalizar y normalizar. Es opcional en caso de querer precisar mayor información para el geocoding}
+\item{col_provincia}{Nombre de la columna que contiene la provincia de la direccion geolocalizar y normalizar. Por ejemplo, que contenga valores como "Ciudad de Buenos Aires". (Vector character)}
 
-\item{api}{text Filtrar por nombre o ID de departamento.}
+\item{col_departamento}{Nombre de la columna que contiene el departamento de la direccion geolocalizar y normalizar. Por ejemplo, que contenga valores como "Comuna 11" o "Berazategui". (Vector character)}
 
-\item{max_returns}{numeric. Cantidad de devoluciones máximas de geolocalización por dirección. Se encuentra puesto en 1}
+\item{api}{Texto que dice que API usar. "datosgobar" es la API del gobierno nacional (https://datosgobar.github.io/georef-ar-api/). "gcba") es la API del gobierno de la Ciudad de Buenos Aires (pendiente de implementación)}
+
+\item{max_returns}{Cantidad de devoluciones máximas de geolocalización por dirección.}
 }
 \value{
 Un objeto data.frame con información sobre la ubicación espacial de direcciones de Argentina
@@ -34,7 +37,7 @@ Convertí tus direcciones a puntos usando APIs gratuitas y del gobierno argentin
 }
 \examples{
 \dontrun{
-df <- datos(direccion=c("Figueroa Alcorta 7597","Pedro Goyena 330"),
+df <- data.frame(direccion=c("Figueroa Alcorta 7597","Pedro Goyena 330"),
             provincia=c("CABA","CABA"))
 geocodeDirecciones(datos=df,col_direccion="direccion",col_provincia="provincia")
 }

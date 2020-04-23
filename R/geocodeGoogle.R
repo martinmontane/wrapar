@@ -1,7 +1,7 @@
 #' Convertí tus direcciones a puntos usando APIs gratuitas y del gobierno argentino
 #' @param datos obligatorio: data.frame o data.table con los datos a geolocalizar
 #' @param col_key obligatorio: columna con la key para usar en cada una de las filas. Útil para superar las restricciones de Google
-#' @param cols_id obligatorio:
+#' @param col_id obligatorio:
 #' @param cols_query obligatorio: Columnas que van a agregarse a la consulta de google
 #' @param col_region opcional: Es posible agregar una columna con la región para forzar resultados en esa región (por ejemplo "AR")
 #' @import data.table
@@ -61,7 +61,7 @@ geocodeGoogle <- function(datos =NULL,
     setTxtProgressBar(pb, i)
     devolucion<-httr::GET(datos$query[i])
     json <- httr::content(devolucion,"text")
-    output <- as.data.table(jsonlite::fromJSON(json))[,id:=datos$id[i]]
+    output <- as.data.table(jsonlite::fromJSON(json))[,id:=datos[[col_id]][i]]
     salida <- c(salida,list(output))
   }
 
