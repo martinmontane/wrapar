@@ -10,7 +10,7 @@
 #' @importFrom httr GET content
 #' @importFrom utils setTxtProgressBar txtProgressBar
 #' @export
-#' @rdname geocodeDirecciones
+#' @rdname geocodeGoogle
 #'
 #' @return Un objeto data.frame con información sobre la ubicación espacial de direcciones de Argentina
 #' @examples
