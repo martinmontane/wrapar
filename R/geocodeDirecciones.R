@@ -18,7 +18,7 @@
 #' @return Un objeto data.frame con información sobre la ubicación espacial de direcciones de Argentina
 #' @examples
 #' \dontrun{
-#' df <- datos(direccion=c("Figueroa Alcorta 7597","Pedro Goyena 330"),
+#' df <- data.frame(direccion=c("Figueroa Alcorta 7597","Pedro Goyena 330"),
 #'             provincia=c("CABA","CABA"))
 #' geocodeDirecciones(datos=df,col_direccion="direccion",col_provincia="provincia")
 #' }
@@ -31,7 +31,6 @@ geocodeDirecciones <- function(datos =NULL,
                                api="datosgobar",
                                max_returns=1) {
 
-
   # attempt::stop_if(.x = api,.p = ~ !.x %in% c("datosgobar","gcba")
                    # msg = paste0("El valor de API es incorrecto. Debe ser ",paste(c("'datosgobar'","'gcba'"),collapse = " o ")))
   urlApi <- switch(api,
@@ -41,7 +40,7 @@ geocodeDirecciones <- function(datos =NULL,
 
 attempt::stop_if(.x = class(datos),.p = ~ !any(.x %in% c('data.frame','data.table')),
                  msg = "Revisá si pasaste los datos en el parámetro 'datos'.\nTenés que pasar un objeto que sea clase 'data.frame' o 'data.table'")
-
+datos <- as.data.frame(datos)
 mustExist <- c(col_id,col_direccion,col_provincia,col_departamento)
 faltantes <- mustExist[!mustExist %in% colnames(datos)]
 attempt::stop_if(.x = length(faltantes)>0, .p = ~ .x == TRUE,
@@ -52,6 +51,7 @@ if(nrow(datos)>1) {
   pb <- txtProgressBar(min = 1, max = nrow(datos), style = 3)
   salida<-rbindlist(lapply(1:nrow(datos),function(x){
     setTxtProgressBar(pb, x)
+
     out <- geocodeDir(direccion=datos[x,col_direccion],
               provincia=datos[x,col_provincia],
               departamento =datos[x,col_departamento],
@@ -64,5 +64,3 @@ if(nrow(datos)>1) {
 
 return(data.frame(salida))
 }
-
-
