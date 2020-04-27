@@ -68,7 +68,7 @@ distanceGoogle <- function(origins=NULL,destination=NULL,travelMode="driving",id
       allPoints <- all(st_geometry_type(origins) %in% "POINT" & st_geometry_type(destination) %in% "POINT")
       attempt::stop_if(.x = allPoints,.p = ~ !.x,
                        msg = "Tanto 'origins' como 'destination' tienen que ser puntos. No se aceptan otro tipo de geometries")
-      all4326 <- all( st_crs(origins)==4326 & st_crs(destination)==4326)
+      all4326 <- all( any(grepl(pattern = "*EPSG:4326*",st_crs(origins)) & any(grepl(pattern = "*EPSG:4326*",st_crs(destination)))))
       attempt::stop_if(.x = all4326,.p = ~ !.x,
                        msg = "Tanto 'origins' como 'destination' tienen que tener CRS EPSG 4326. Transformalo usando st_transform() o definilo usando st_crs()")
       if(nrow(origins)>1){
