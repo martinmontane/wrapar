@@ -93,8 +93,6 @@ distanceGoogle <- function(origins=NULL,destination=NULL,travelMode="driving",id
     } else {
       urlDistance <- paste("https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&arrival_time=",arrival_time,"&",sep="")
     }
-
-
     if(inherits(origins,"data.frame")){
       results <- list()
 
