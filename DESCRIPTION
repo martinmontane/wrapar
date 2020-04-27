@@ -1,10 +1,10 @@
 Package: wrapar
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Wraps de APIs para datos espaciales
 Version: 0.1.0
 Author: Who wrote it
 Maintainer: The package maintainer <martinmontane@gmail.com>
-Description: More about what it does (maybe more than one line)
+Description: Wrapar: facilitando el uso de APIs para datos espaciales
     Use four spaces when indenting paragraphs within the Description.
 License: What license is it under?
 Encoding: UTF-8
@@ -15,5 +15,6 @@ Imports:
   curl,
   httr,
   jsonlite,
-  utils
+  utils,
+  sf
 RoxygenNote: 7.1.0

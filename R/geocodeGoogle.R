@@ -1,4 +1,4 @@
-#' Convertí tus direcciones a puntos usando APIs gratuitas y del gobierno argentino
+#' Convertí las direcciones a coordenadas usando la API de Google
 #' @param datos obligatorio: data.frame o data.table con los datos a geolocalizar
 #' @param col_key obligatorio: columna con la key para usar en cada una de las filas. Útil para superar las restricciones de Google
 #' @param col_id obligatorio:

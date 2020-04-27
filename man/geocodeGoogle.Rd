@@ -2,7 +2,7 @@
 % Please edit documentation in R/geocodeGoogle.R
 \name{geocodeGoogle}
 \alias{geocodeGoogle}
-\title{Convertí tus direcciones a puntos usando APIs gratuitas y del gobierno argentino}
+\title{Convertí las direcciones a coordenadas usando la API de Google}
 \usage{
 geocodeGoogle(
   datos = NULL,
@@ -27,7 +27,7 @@ geocodeGoogle(
 Un objeto data.frame con información sobre la ubicación espacial de direcciones de Argentina
 }
 \description{
-Convertí tus direcciones a puntos usando APIs gratuitas y del gobierno argentino
+Convertí las direcciones a coordenadas usando la API de Google
 }
 \examples{
 \dontrun{
