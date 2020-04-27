@@ -56,15 +56,9 @@ API de google. Próximamente se incluirá la posibilidad de usar direcciones no 
                    long=c(-58.4498438,-58.4319205,-58.3983398))
 df$id <- 1:nrow(df)
 
-df <- st_as_sf(df,coords=c("long","lat"))
+df <- st_as_sf(df,coords=c("long","lat"),crs=4326)
 
 
-distancias <- distanceGoogle(origins=df[!df$direccion == "Estadio Monumental",],
-               destination = df[df$direccion == "Estadio Monumental",],
-               idCols=c("id","id"),
-               key="afafaf31fafada",
-               travelMode="transit")
-# Usando un tiempo de llegada
 distancias <- distanceGoogle(origins=df[!df$direccion == "Estadio Monumental",],
                              destination = df[df$direccion == "Estadio Monumental",],
                              idCols=c("id","id"),

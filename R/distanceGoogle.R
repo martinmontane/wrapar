@@ -30,15 +30,15 @@
 #'                    long=c(-58.4498438,-58.4319205,-58.3983398))
 #' df$id <- 1:nrow(df)
 #'
-#' df <- st_as_sf(df,coords=c("long","lat"))
+#' df <- st_as_sf(df,coords=c("long","lat"),crs=4326)
 #'
 #'
-#' distancias <- distanceGoogle(origins=df[!df$direccion == "Estadio Monumental",],
-#'                destination = df[df$direccion == "Estadio Monumental",],
-#'                idCols=c("id","id"),
-#'                key="afafaf31fafada",
-#'                travelMode="transit")
-#' # Usando un tiempo de llegada
+# distancias <- distanceGoogle(origins=df[!df$direccion == "Estadio Monumental",],
+#                destination = df[df$direccion == "Estadio Monumental",],
+#                idCols=c("id","id"),
+#                key="afafaf31fafada",
+#                travelMode="transit")
+# # Usando un tiempo de llegada
 #' distancias <- distanceGoogle(origins=df[!df$direccion == "Estadio Monumental",],
 #'                              destination = df[df$direccion == "Estadio Monumental",],
 #'                              idCols=c("id","id"),
@@ -65,8 +65,18 @@ distanceGoogle <- function(origins=NULL,destination=NULL,travelMode="driving",id
       sfObjects <- ifelse(inherits(origins,"sf") & inherits(destination,"sf"),TRUE,FALSE)
       attempt::stop_if(.x = sfObjects,.p = ~ !.x,
                        msg = "Tanto 'origins' como 'destination' tienen que ser objetos de la clase sf.\nSi querés usar data.frames o data.tables tenés que aclarar los nombres de las columnas de 'orogins' y 'destination' que van a ser usadas en la consulta a Google")
+      allPoints <- all(st_geometry_type(origins) %in% "POINT" & st_geometry_type(destination) %in% "POINT")
+      attempt::stop_if(.x = allPoints,.p = ~ !.x,
+                       msg = "Tanto 'origins' como 'destination' tienen que ser puntos. No se aceptan otro tipo de geometries")
+      all4326 <- all( st_crs(origins)==4326 & st_crs(destination)==4326)
+      attempt::stop_if(.x = all4326,.p = ~ !.x,
+                       msg = "Tanto 'origins' como 'destination' tienen que tener CRS EPSG 4326. Transformalo usando st_transform() o definilo usando st_crs()")
+      if(nrow(origins)>1){
       origins <- as.data.frame(st_coordinates(origins)[,c(2,1)])
       origins$forURL <- paste(origins$Y,origins$X,sep=",")
+      } else{
+        origins <- paste(st_coordinates(origins)[,c(2,1)],collapse=",")
+      }
       # origins <- paste(origins$forURL,collapse = "|")
       destination <- paste(st_coordinates(destination)[,c(2,1)],collapse=",")
     } else {
