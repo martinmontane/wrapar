@@ -93,20 +93,33 @@ distanceGoogle <- function(origins=NULL,destination=NULL,travelMode="driving",id
     } else {
       urlDistance <- paste("https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&arrival_time=",arrival_time,"&",sep="")
     }
-    results <- list()
 
-    pb <- txtProgressBar(min = 1, max = nrow(origins), style = 3)
-    for(i in 1:nrow(origins)) {
-      setTxtProgressBar(pb, i)
-      consulta <- paste(urlDistance,"origins=",origins$forURL[i],"&destinations=",destination,"&mode=",travelMode,"&key=",key,sep="")
+
+    if(inherits(origins,"data.frame")){
+      results <- list()
+
+      pb <- txtProgressBar(min = 1, max = nrow(origins), style = 3)
+      for(i in 1:nrow(origins)) {
+        setTxtProgressBar(pb, i)
+        consulta <- paste(urlDistance,"origins=",origins$forURL[i],"&destinations=",destination,"&mode=",travelMode,"&key=",key,sep="")
+        prueba <- httr::GET(consulta)
+        respuesta <- httr::content(prueba)
+        results<-c(results,list(as.data.table(t(unlist(httr::content(prueba))),keep.rownames = TRUE)))
+      }
+      results <- rbindlist(results,fill = TRUE)
+      results$idOrigins <- idOrigins
+      results$idDestination <- idDestination
+      return(as.data.frame(results))
+    } else{
+      consulta <- paste(urlDistance,"origins=",origins,"&destinations=",destination,"&mode=",travelMode,"&key=",key,sep="")
       prueba <- httr::GET(consulta)
       respuesta <- httr::content(prueba)
-      results<-c(results,list(as.data.table(t(unlist(httr::content(prueba))),keep.rownames = TRUE)))
+      results <- data.table(as.data.table(t(unlist(httr::content(prueba))),keep.rownames = TRUE))
+      results$idOrigins <- idOrigins
+      results$idDestination <- idDestination
+      return(results)
     }
-    results <- rbindlist(results,fill = TRUE)
-    results$idOrigins <- idOrigins
-    results$idDestination <- idDestination
-    return(as.data.frame(results))
+
 }
 
 
